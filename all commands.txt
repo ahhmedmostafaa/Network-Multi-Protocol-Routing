@@ -1,0 +1,348 @@
+Router 0
+en
+conf t
+interface serial 0/3/0
+no shutdown
+ip address 10.10.10.1 255.0.0.0
+ex
+interface gigabitEthernet 0/0
+no shutdown
+ip address 50.0.0.1 255.255.255.0
+ex
+router ospf 1
+network 50.0.0.0 0.0.0.255 area 0
+ex
+interface serial 0/3/0
+encapsulation frame-relay
+frame-relay interface-dlci 100
+frame-relay interface-dlci 101
+frame-relay interface-dlci 102
+ip ospf network broadcast
+ex
+router ospf 1
+network 10.0.0.0 255.255.255.0 area 0
+--------------------------------------------
+Router 1
+en 
+conf t
+interface gigabitEthernet 0/0
+no shutdown
+ip address 50.0.0.2 255.255.255.0
+ex
+router ospf 1
+network 50.0.0.0 0.0.0.255 area 0
+ex
+interface gigabitEthernet 0/1
+no shutdown
+ip address 60.0.0.1 255.255.255.0
+ex
+router rip
+version 2
+network 60.0.0.0
+no auto-summary
+ex
+router ospf 1
+redistribute rip subnets
+ex
+router rip
+redistribute ospf 1 metric 5
+ex
+--------------------------------------------
+Router 2
+en
+conf t
+interface gigabitEthernet 0/0
+no shutdown
+ip address 60.0.0.2 255.255.255.0
+ex
+router rip
+version 2
+network 60.0.0.0
+no auto-summary
+ex
+interface gigabitEthernet 0/1
+no shutdown 
+ip address 70.0.0.3 255.255.255.0
+router rip
+version 2
+network 70.0.0.0
+no auto-summary
+--------------------------------------------
+Router 3
+en
+conf t
+interface serial 0/3/0
+no shutdown
+ip address 10.10.10.2 255.0.0.0
+ex
+interface gigabitEthernet 0/0
+ip address 20.0.0.1 255.255.255.0
+ex
+router eigrp 5
+network 20.0.0.0
+no auto-summary
+ex
+interface serial 0/3/0
+encapsulation frame-relay
+frame-relay interface-dlci 200
+frame-relay interface-dlci 201
+frame-relay interface-dlci 202
+ip ospf network broadcast
+ex
+router ospf 1
+network 10.0.0.0 255.255.255.0 area 0
+ex
+--------------------------------------------
+Router 4
+en 
+conf t
+interface gigabitEthernet 0/0
+no shutdown
+ip address 20.0.0.2 255.255.255.0
+ex
+interface gigabitEthernet 0/1
+no shutdown
+ip address 30.0.0.1 255.255.255.0
+ex
+router eigrp 5
+network 20.0.0.0
+no auto-summary
+router eigrp 8
+network 30.0.0.0
+no auto-summary
+router eigrp 5
+redistribute eigrp 8 metric 10000 100 255 1 1500
+router eigrp 8
+redistribute eigrp 5 metric 10000 100 255 1 1500
+ex
+--------------------------------------------
+Router 5
+en 
+conf t
+interface gigabitEthernet 0/0
+no shutdown
+ip address 30.0.0.2 255.255.255.0
+ex
+router eigrp 8
+network 30.0.0.0
+no auto-summary
+interface gigabitEthernet 0/1
+no shutdown
+ex
+interface gigabitEthernet 0/1.10
+encapsulation dot1Q 10
+ex
+ip dhcp pool vlan10
+network 192.168.10.0 255.255.255.0
+default-router 192.168.10.1
+dns-server 8.8.8.8
+ex
+interface gigabitEthernet 0/1.20
+encapsulation dot1Q 20
+ex
+ip dhcp pool vlan20
+network 192.168.20.0 255.255.255.0
+default-router 192.168.20.1
+dns-server 8.8.8.8
+ex
+router eigrp 8
+network 192.168.10.0
+network 192.168.20.0
+no auto-summary
+ex
+--------------------------------------------
+Switch 1
+en
+conf t
+interface fastEthernet 0/1
+switchport mode trunk 
+ex
+interface fastEthernet 0/2
+switchport mode access
+switchport access vlan 10
+ex
+interface fastEthernet 0/3
+switchport mode access
+switchport access vlan 20
+ex
+--------------------------------------------
+Router 6
+en
+conf t
+interface serial 0/3/0
+no shutdown
+ip address 10.10.10.4 255.0.0.0
+ex
+interface gigabitEthernet 0/0
+no shutdown
+ip address 40.0.0.3 255.255.255.0
+ex
+interface serial 0/3/0
+encapsulation frame-relay
+frame-relay interface-dlci 400
+frame-relay interface-dlci 401
+frame-relay interface-dlci 402
+ip ospf network broadcast
+ex
+router ospf 1
+network 10.0.0.0 255.255.255.0 area 0
+network 40.0.0.0 0.0.0.255 area 0
+ex
+--------------------------------------------
+Router 7
+en
+conf t
+interface serial 0/3/0
+no shutdown
+ip address 10.10.10.3 255.0.0.0
+ex
+interface gigabitEthernet 0/0
+no shutdown
+ip address 80.0.0.1 255.255.255.0
+ex
+interface gigabitEthernet 0/1
+no shutdown
+ip address 90.0.0.1 255.255.255.0
+ex
+router ospf 1
+network 80.0.0.0 0.0.0.255 area 0
+ex
+router eigrp 1
+network 90.0.0.0
+no auto-summary
+ex
+router ospf 1
+redistribute eigrp 1 subnets
+ex
+router eigrp 1
+redistribute ospf 1 metric 10000 100 255 1 1500
+ex
+interface serial 0/3/0
+encapsulation frame-relay
+frame-relay interface-dlci 300
+frame-relay interface-dlci 301
+frame-relay interface-dlci 302
+ip ospf network broadcast
+ex
+router ospf 1
+network 10.0.0.0 255.255.255.0 area 0
+ex
+--------------------------------------------
+Router 8
+en 
+conf t
+interface gigabitEthernet 0/0
+no shutdown
+ip address 80.0.0.2 255.255.255.0
+ex
+router ospf 1
+network 80.0.0.0 0.0.0.255 area 0
+ex
+interface gigabitEthernet 0/1
+no shutdown
+ex
+interface gigabitEthernet 0/1.10
+encapsulation dot1Q 30
+ip address 192.168.30.1 255.255.255.0
+ex
+ip dhcp pool vlan30
+network 192.168.30.0 255.255.255.0
+default-router 192.168.30.1
+dns-server 8.8.8.8
+ex
+router ospf 1
+network 192.168.30.0 0.0.0.255 area 0
+ex
+--------------------------------------------
+Router 9
+en 
+conf t
+interface gigabitEthernet 0/0
+no shutdown
+ip address 90.0.0.2 255.255.255.0
+ex
+interface gigabitEthernet 0/1
+no shutdown
+ex
+interface gigabitEthernet 0/1.20
+encapsulation dot1Q 40
+ip address 192.168.40.1 255.255.255.0
+ex
+ip dhcp pool vlan40
+network 192.168.40.0 255.255.255.0
+default-router 192.168.40.1
+dns-server 8.8.8.8
+ex
+router eigrp 1
+network 192.168.40.0
+no auto-summary
+ex
+--------------------------------------------
+Switch 4
+en
+conf t
+interface fastEthernet 0/1
+switchport mode trunk 
+ex
+interface fastEthernet 0/2
+switchport mode access
+switchport access vlan 30
+ex
+interface fastEthernet 0/3
+switchport mode access
+switchport access vlan 30
+ex
+spanning-tree portfast default
+spanning-tree mode rapid-pvst 
+interface range fastEthernet 0/2-3
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ex
+--------------------------------------------
+Switch 3
+en
+conf t
+interface fastEthernet 0/1
+switchport mode trunk 
+ex
+interface fastEthernet 0/2
+switchport mode access
+switchport access vlan 40
+ex
+interface fastEthernet 0/3
+switchport mode access
+switchport access vlan 40
+ex
+spanning-tree portfast default
+spanning-tree mode rapid-pvst 
+interface range fastEthernet 0/2-3
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ex
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
