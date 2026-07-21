@@ -18,13 +18,11 @@ A multi-domain network topology built in Cisco Packet Tracer, integrating three 
 
 ## Topology Summary
 
-| Segment | Routers | Protocol |
-|---|---|---|
-| WAN backbone (Frame Relay) | R0, R3, R6, R7 | OSPF area 0 |
-| Branch 1 | R1 ↔ R2 | RIP v2 (redistributed into OSPF) |
-| Branch 2 | R3 ↔ R4 ↔ R5 | EIGRP AS 5 ↔ EIGRP AS 8 (redistributed) |
-| Branch 3 | R7 ↔ R8, R9 | OSPF ↔ EIGRP AS 1 (redistributed) |
-| Access layer | Switch 1, 3, 4 | VLANs 10/20/30/40 with DHCP |
+- **WAN backbone (Frame Relay)** — R0, R3, R6, R7 → OSPF area 0
+- **Branch 1** — R1 ↔ R2 → RIP v2 (redistributed into OSPF)
+- **Branch 2** — R3 ↔ R4 ↔ R5 → EIGRP AS 5 ↔ EIGRP AS 8 (redistributed)
+- **Branch 3** — R7 ↔ R8, R9 → OSPF ↔ EIGRP AS 1 (redistributed)
+- **Access layer** — Switch 1, 3, 4 → VLANs 10/20/30/40 with DHCP
 
 ## Frame Relay Configuration Detail
 
@@ -72,7 +70,7 @@ https://github.com/user-attachments/assets/b0dffca3-8465-4a36-84a4-ec12112ad443
 ## Files
 
 - `final_project.pkt` — the complete Packet Tracer topology (open with Cisco Packet Tracer)
-- `all commands.txt` — full CLI configuration for every router and switch in the topology
+- [`all commands.txt`](all%20commands.txt) — full CLI configuration for every router and switch in the topology
 - `topology.png` — network diagram
 - `frame-relay-config/` — Frame Relay DLCI mapping and per-interface configuration screenshots
 
