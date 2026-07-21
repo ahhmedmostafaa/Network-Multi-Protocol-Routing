@@ -20,7 +20,8 @@ frame-relay interface-dlci 102
 ip ospf network broadcast
 ex
 router ospf 1
-network 10.0.0.0 255.255.255.0 area 0
+network 10.0.0.0 0.0.0.255 area 0
+ex
 --------------------------------------------
 Router 1
 en 
@@ -63,10 +64,12 @@ ex
 interface gigabitEthernet 0/1
 no shutdown 
 ip address 70.0.0.3 255.255.255.0
+ex
 router rip
 version 2
 network 70.0.0.0
 no auto-summary
+ex
 --------------------------------------------
 Router 3
 en
@@ -76,6 +79,7 @@ no shutdown
 ip address 10.10.10.2 255.0.0.0
 ex
 interface gigabitEthernet 0/0
+no shutdown
 ip address 20.0.0.1 255.255.255.0
 ex
 router eigrp 5
@@ -90,7 +94,7 @@ frame-relay interface-dlci 202
 ip ospf network broadcast
 ex
 router ospf 1
-network 10.0.0.0 255.255.255.0 area 0
+network 10.0.0.0 0.0.0.255 area 0
 ex
 --------------------------------------------
 Router 4
@@ -107,11 +111,14 @@ ex
 router eigrp 5
 network 20.0.0.0
 no auto-summary
+ex
 router eigrp 8
 network 30.0.0.0
 no auto-summary
+ex
 router eigrp 5
 redistribute eigrp 8 metric 10000 100 255 1 1500
+ex
 router eigrp 8
 redistribute eigrp 5 metric 10000 100 255 1 1500
 ex
@@ -126,11 +133,13 @@ ex
 router eigrp 8
 network 30.0.0.0
 no auto-summary
+ex
 interface gigabitEthernet 0/1
 no shutdown
 ex
 interface gigabitEthernet 0/1.10
 encapsulation dot1Q 10
+ip address 192.168.10.1 255.255.255.0
 ex
 ip dhcp pool vlan10
 network 192.168.10.0 255.255.255.0
@@ -139,6 +148,7 @@ dns-server 8.8.8.8
 ex
 interface gigabitEthernet 0/1.20
 encapsulation dot1Q 20
+ip address 192.168.20.1 255.255.255.0
 ex
 ip dhcp pool vlan20
 network 192.168.20.0 255.255.255.0
@@ -185,7 +195,7 @@ frame-relay interface-dlci 402
 ip ospf network broadcast
 ex
 router ospf 1
-network 10.0.0.0 255.255.255.0 area 0
+network 10.0.0.0 0.0.0.255 area 0
 network 40.0.0.0 0.0.0.255 area 0
 ex
 --------------------------------------------
@@ -319,30 +329,3 @@ interface range fastEthernet 0/2-3
 switchport port-security mac-address sticky
 switchport port-security violation restrict
 ex
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
