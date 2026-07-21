@@ -20,7 +20,7 @@ frame-relay interface-dlci 102
 ip ospf network broadcast
 ex
 router ospf 1
-network 10.0.0.0 0.0.0.255 area 0
+network 10.10.10.0 0.0.0.255 area 0
 ex
 --------------------------------------------
 Router 1
@@ -94,7 +94,7 @@ frame-relay interface-dlci 202
 ip ospf network broadcast
 ex
 router ospf 1
-network 10.0.0.0 0.0.0.255 area 0
+network 10.10.10.0 0.0.0.255 area 0
 ex
 --------------------------------------------
 Router 4
@@ -195,7 +195,7 @@ frame-relay interface-dlci 402
 ip ospf network broadcast
 ex
 router ospf 1
-network 10.0.0.0 0.0.0.255 area 0
+network 10.10.10.0 0.0.0.255 area 0
 network 40.0.0.0 0.0.0.255 area 0
 ex
 --------------------------------------------
@@ -235,7 +235,7 @@ frame-relay interface-dlci 302
 ip ospf network broadcast
 ex
 router ospf 1
-network 10.0.0.0 0.0.0.255 area 0
+network 10.10.10.0 0.0.0.255 area 0
 ex
 --------------------------------------------
 Router 8
