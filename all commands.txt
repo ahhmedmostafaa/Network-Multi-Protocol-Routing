@@ -225,7 +225,7 @@ frame-relay interface-dlci 302
 ip ospf network broadcast
 ex
 router ospf 1
-network 10.0.0.0 255.255.255.0 area 0
+network 10.0.0.0 0.0.0.255 area 0
 ex
 --------------------------------------------
 Router 8
