@@ -48,17 +48,36 @@ The Frame Relay cloud (`Cloud0`) maps DLCIs between four serial interfaces, form
 <img src="frame-relay-config/Serial3.png" width="240"/>
 </p>
 
+## Demo — End-to-End Connectivity Test
+
+To validate that redistribution is working correctly across all three routing domains (OSPF, RIP v2, and the EIGRP autonomous systems), several ICMP tests were run between end devices located in completely different segments of the network — meaning each ping crosses at least one redistribution boundary.
+
+| # | Source | Destination | Segments Crossed | Result |
+|---|---|---|---|---|
+| 1 | PC0 (RIP branch) | PC8 (EIGRP AS 1 branch) | RIP → OSPF → EIGRP 1 | ✅ Successful |
+| 2 | PC2 (EIGRP AS 8 branch) | PC6 (OSPF/Frame Relay backbone) | EIGRP 8 → EIGRP 5 → OSPF | ✅ Successful |
+| 3 | PC5 (OSPF backbone) | PC9 (EIGRP AS 1 branch) | OSPF → EIGRP 1 | ✅ Successful |
+
+All three PDUs completed successfully in Simulation mode, confirming that routes are being properly redistributed in both directions at every protocol boundary (RIP ↔ OSPF, OSPF ↔ EIGRP 1, EIGRP 5 ↔ EIGRP 8) and that VLAN/DHCP-assigned hosts can reach devices several hops away in a different routing domain.
+
+📹 **Full video walkthrough of the test:**
+
+https://github.com/user-attachments/assets/b0dffca3-8465-4a36-84a4-ec12112ad443
+
 ## Files
+
 - `final_project.pkt` — the complete Packet Tracer topology (open with Cisco Packet Tracer)
 - `all commands.txt` — full CLI configuration for every router and switch in the topology
 - `topology.png` — network diagram
 - `frame-relay-config/` — Frame Relay DLCI mapping and per-interface configuration screenshots
 
 ## Tech Stack
+
 - Cisco Packet Tracer
 - Cisco IOS CLI (OSPF, RIP v2, EIGRP, Frame Relay, VLANs, DHCP, Spanning Tree, Port Security)
 
 ## How to Open
+
 1. Install [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer) (free with a Cisco Networking Academy account)
 2. Open `final_project.pkt`
 3. Use Simulation mode to trace packets across routing domains, or reference `all commands.txt` for the full CLI configuration of each device
