@@ -54,11 +54,16 @@ To validate that redistribution is working correctly across all three routing do
 
 | # | Source | Destination | Segments Crossed | Result |
 |---|---|---|---|---|
-| 1 | PC0 (RIP branch) | PC8 (EIGRP AS 1 branch) | RIP → OSPF → EIGRP 1 | ✅ Successful |
-| 2 | PC2 (EIGRP AS 8 branch) | PC6 (OSPF/Frame Relay backbone) | EIGRP 8 → EIGRP 5 → OSPF | ✅ Successful |
-| 3 | PC5 (OSPF backbone) | PC9 (EIGRP AS 1 branch) | OSPF → EIGRP 1 | ✅ Successful |
+| 1 | PC0 (RIP branch) | PC8 (OSPF branch, Router8/VLAN30) | RIP → OSPF | ✅ Successful |
+| 2 | PC2 (EIGRP 8 branch) | PC6 (EIGRP 1 branch, Router9/VLAN40) | EIGRP 8 → EIGRP 5 → OSPF → EIGRP 1 | ✅ Successful |
+| 3 | PC5 (OSPF backbone) | PC9 (OSPF branch, Router8/VLAN30) | OSPF (Frame Relay backbone) | ✅ Successful |
+| 4 | PC4 (OSPF backbone) | PC7 (EIGRP 1 branch, Router9/VLAN40) | OSPF → EIGRP 1 | ✅ Successful |
+| 5 | PC1 (RIP branch) | PC7 (EIGRP 1 branch, Router9/VLAN40) | RIP → OSPF → EIGRP 1 | ✅ Successful |
+| 6 | PC0 (RIP branch) | PC9 (OSPF branch, Router8/VLAN30) | RIP → OSPF | ✅ Successful |
+| 7 | PC5 (OSPF backbone) | PC3 (EIGRP 8 branch, VLAN20) | OSPF → EIGRP 5 → EIGRP 8 | ✅ Successful |
+| 8 | PC2 (EIGRP 8 branch, VLAN10) | PC1 (RIP branch) | EIGRP 8 → EIGRP 5 → OSPF → RIP | ✅ Successful |
 
-All three PDUs completed successfully in Simulation mode, confirming that routes are being properly redistributed in both directions at every protocol boundary (RIP ↔ OSPF, OSPF ↔ EIGRP 1, EIGRP 5 ↔ EIGRP 8) and that VLAN/DHCP-assigned hosts can reach devices several hops away in a different routing domain.
+All PDUs completed successfully in Simulation mode, confirming that routes are being properly redistributed in both directions at every protocol boundary (RIP ↔ OSPF, OSPF ↔ EIGRP 1, EIGRP 5 ↔ EIGRP 8) and that VLAN/DHCP-assigned hosts can reach devices several hops away in a different routing domain.
 
 📹 **Full video walkthrough of the test:**
 
